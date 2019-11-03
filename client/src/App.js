@@ -16,6 +16,7 @@ import UserProfile from './components/UserProfile'
 import committees from "./committees.json";
 import { SSL_OP_EPHEMERAL_RSA } from 'constants';
 import TwitterRoute from "./components/TwitterRoute";
+import Articles from "./components/Articles";
 
 
 
@@ -41,10 +42,18 @@ const DisplayLinks = props => {
 						</Link>
 					</li>
 					<li>
+						<Link to="/articles" className="nav-link" >
+							<h5>Articles</h5>
+						</Link>
+					</li>
+					
+					<li>
 						<Link to="#" className="nav-link" onClick={props._logout}>
 							<h5>Log Out</h5>
 						</Link>
 					</li>
+					
+					
 				</ul>
 			</nav>
 		)
@@ -255,6 +264,7 @@ class App extends Component {
 								loaded={this.state.loaded}
 								user={this.state.user}
 							/>
+							<Route exact path="/articles" render={ () => <Articles/>} />
 
 						</CenterBody>
 					</Center>

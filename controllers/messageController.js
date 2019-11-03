@@ -12,6 +12,11 @@ module.exports = {
       .then(dbMessage => res.json(dbMessage))
       .catch(err => res.status(422).json(err));
   },
+  findByUserId: function(req, res) {
+    db.Message.find({user: req.params.user_id})
+      .then(dbMessage => res.json(dbMessage))
+      .catch(err => res.status(422).json(err));
+  },
   create: function(req, res) {
     db.Message.create(req.body)
       .then(dbMessage => res.json(dbMessage))

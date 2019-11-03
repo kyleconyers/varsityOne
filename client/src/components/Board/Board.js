@@ -21,6 +21,7 @@ import Card from "../Card";
       //passvvvvv form_id or whatever message board we are on 
     componentDidMount() {
         const path = window.location.pathname.split("/");
+        console.log("PATH FOR MESSAGES", path)
         if(path[1] !== 'forum'){
           // throw exception because we dont understand how this url is formatted
           return;
@@ -45,6 +46,7 @@ import Card from "../Card";
 
         var tags = window.location.href.split("/");
         var tag = "all";
+        console.log("TAGS", tags)
         if (tags.length > 5) {
           tag = tags[5];
         }
@@ -76,6 +78,7 @@ import Card from "../Card";
        
         var tags = window.location.href.split("/");
         var tag = tags[5];
+        
     
 
         console.log(this.props)

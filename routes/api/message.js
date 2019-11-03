@@ -13,4 +13,8 @@ router
   .put(messageController.update)
   .delete(messageController.remove);
 
+  router
+  .route("/:user_id")
+  .get(messageController.findByUserId)
+
 module.exports = router;

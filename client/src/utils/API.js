@@ -14,7 +14,7 @@ export default {
   // getSavedMessage: function() {
   //   return axios.get("/api/message");
   // },
-
+  
   getSavedMessageByForumAndTag: function(forum_id, tag){
     return axios.get(`/api/message?forum_id=${forum_id}&tag=${tag}`);
   },
@@ -44,7 +44,10 @@ export default {
   // Saves an forum to the database
   saveForum: function(forumData) {
     return axios.post("/api/forum", forumData);
-  }
+  },
+  getSavedForumByUser: function(name) {
+    return axios.get(`/api/forum?name=${name}`);
+  },
 
 
 };

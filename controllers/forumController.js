@@ -27,6 +27,7 @@ module.exports = {
       .then(dbForum => res.json(dbForum))
       .catch(err => res.status(422).json(err));
   },
+  
   remove: function(req, res) {
     db.Forum.findById(req.params.id)
       .then(dbForum => dbForum.remove())
