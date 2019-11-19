@@ -24,6 +24,9 @@ export default {
     return axios.delete("/api/message/" + id);
   },
 
+  getMessageByUser: function(id) {
+    return axios.get("/api/message/byuser/" + id);
+  },
   // Saves an Messages to the database
   saveMessage: function(messageData) {
     return axios.post("/api/message", messageData);
