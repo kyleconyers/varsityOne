@@ -18,6 +18,7 @@ class LoginForm extends Component {
 	}
 
 	handleChange(event) {
+		console.log(this.handleChange)
 		this.setState({
 			[event.target.name]: event.target.value
 		})
