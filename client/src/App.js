@@ -265,6 +265,7 @@ class App extends Component {
 								user={this.state.user}
 							/>
 							<Route exact path="/articles" render={ () => <Articles user={this.state.user}/>} />
+							<Route exact path="/articles/:user" render={ () => <Articles user={null}/>} />
 
 						</CenterBody>
 					</Center>

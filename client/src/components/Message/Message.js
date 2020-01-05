@@ -12,7 +12,7 @@ function Message(props) {
             <div className="message-group-item">
               
               <h6 className="author" >
-                Author: {props.message.user.local.username}
+                Author: <a href={"/articles/" + props.message.user.local.username}>{props.message.user.local.username}</a>
               </h6>
               
               <h6 className="date">

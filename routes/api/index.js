@@ -4,6 +4,7 @@ const propublicaRoutes = require("./propublica");
 const googleRoutes = require("./google");
 const messageRoutes = require("./message");
 const forumRoutes = require("./forum");
+const userRoutes = require("./user");
 
 
 // Messages Routes
@@ -13,7 +14,8 @@ router.use("/message", messageRoutes);
 // Forum Routes
 router.use("/forum", forumRoutes);
 
-
+// user Routes
+router.use("/user", userRoutes);
 // Propublica Routes
 router.use("/propublica", propublicaRoutes);
 

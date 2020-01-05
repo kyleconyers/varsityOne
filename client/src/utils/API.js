@@ -52,5 +52,8 @@ export default {
     return axios.get(`/api/forum?name=${name}`);
   },
 
+  getUser: function(name) {
+    return axios.get(`/api/user/byname?name=${name}`);
+  }
 
 };
