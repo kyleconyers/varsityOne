@@ -1,6 +1,7 @@
 export default function reducer(state, action){
     switch (action.type) {
         case 'TOGGLE_TAG':
+            let tag = "";
             const tags = new Set(state.tags);
             if(action.tag === 'all'){
                 if(tags.has('all')){
@@ -25,10 +26,12 @@ export default function reducer(state, action){
             }
             else{
                 tags.add(action.tag);
+                tag = action.tag;
             }
             return {
                 ...state,
-                tags: tags
+                tags: tags,
+                tag: tag
             };
         default:
             return state;

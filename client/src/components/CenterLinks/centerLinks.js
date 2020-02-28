@@ -13,7 +13,7 @@ export default function CenterLinks(props){
   console.log('Our state: ', state);
   const tags = [
     { name: "all", color: "danger", displayText: "All Committees" },
-    { name: "innovation", color: "danger", displayText: "Innovation, Technololgy & Economic Development"},
+    { name: "innovation", color: "success", displayText: "Innovation, Technololgy & Economic Development"},
     { name: "consumer", color: "success", displayText: "consumer, Technololgy & Economic Development"},
   ];
   const tagComponents = tags.map((tag) => {
