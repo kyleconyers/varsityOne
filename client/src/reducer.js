@@ -30,9 +30,14 @@ export default function reducer(state, action){
             }
             return {
                 ...state,
-                tags: tags,
-                tag: tag
+                tags: tags
             };
+        case 'SET_MESSAGES':
+            const messages = state.messages
+            return {
+                ...state,
+                messages: messages
+            }
         default:
             return state;
     }

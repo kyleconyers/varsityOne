@@ -5,7 +5,7 @@ import './App.css'
 import ProtectedRoute from './components/ProtectedRoute'
 import LoginForm from './components/Login/LoginForm'
 import SignupForm from './components/SignupForm'
-import Center from './components/Center'
+import {Center} from './components/Center/center'
 import CenterBody from './components/CenterBody'
 import CenterLinks from './components/CenterLinks'
 import LeftSideBar from './components/LeftSideBar'
@@ -244,7 +244,7 @@ class App extends Component {
 						</CenterLinks>
 
 						{/* Main portion of center showing variable content */}
-						<CenterBody user={this.state.user} className="centerBody">
+						<CenterBody user={this.state.user} usState={this.state.state} className="centerBody">
 
 							<Route
 								exact

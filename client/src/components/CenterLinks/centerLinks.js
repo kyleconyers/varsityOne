@@ -1,16 +1,20 @@
-import React, { useReducer } from "react";
+import React, { useContext } from "react";
 import "../../App.css";
 import reducer from "../../reducer";
 import { Badge } from 'reactstrap';
 import { setPriority } from "os";
+import {store} from '../Center/center'
  
 // const CenterLinks = props => <div className="centerLinks">{props.children}</div>
 
 
 
 export default function CenterLinks(props){
-  const [state, dispatch] = useReducer(reducer, { tags: new Set(['all']) });
-  console.log('Our state: ', state);
+  
+
+  const {state, dispatch} = useContext(store)
+
+  console.log('Our global from parent state: ', state);
   const tags = [
     { name: "all", color: "danger", displayText: "All Committees" },
     { name: "innovation", color: "success", displayText: "Innovation, Technololgy & Economic Development"},
@@ -24,6 +28,7 @@ export default function CenterLinks(props){
       </Badge>
     )
   });
+  
   // state = {
   //   href: null
   // }
@@ -73,6 +78,10 @@ export default function CenterLinks(props){
      */}
     </div>
   );
+
+    
+  // }
+ 
 
     
   // }

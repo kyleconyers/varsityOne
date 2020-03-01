@@ -5,9 +5,11 @@ import OtherDistricts from '../OtherDistricts'
 
 // import "./leftSideBar.css"
 
-const LeftSideBar = props => <div className="leftSideBar">
+const LeftSideBar = props => {
+    
+    return (<div className="leftSideBar">
     <MiniProfile className="profile" user={props.user} />
-
+    
     <Districts 
         className="districts" 
         user={props.user} 
@@ -24,7 +26,7 @@ const LeftSideBar = props => <div className="leftSideBar">
             The Other Districts
         </p>
     </OtherDistricts> */}
-</div>
+</div>)}
 
 // {props.children}
 

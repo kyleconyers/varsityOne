@@ -4,11 +4,18 @@ import Message from "../Message";
 
 class MessageList extends React.Component{
 
+    constructor(props) {
+        super(props);
+        console.log("MESSAGE LIST PORPS", this.props);
+    }
+    
+
     render(){
         return (<div className="message-group-item">
-                {this.props.messages.map(
+                the messages
+                {/* {this.props.messages.map(
                     (message) => <Message key={message._id} message={message} /> 
-                )}
+                )} */}
                 </div>)
     }
 
