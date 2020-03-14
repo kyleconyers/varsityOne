@@ -5,13 +5,14 @@ import { Redirect } from 'react-router-dom'
 import googleButton from './google_signin_buttons/web/1x/btn_google_signin_dark_normal_web.png'
 
 class LoginForm extends Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 		this.state = {
 			username: '',
 			password: '',
 			redirectTo: null
 		}
+		console.log(this.props)
 		// this.googleSignin = this.googleSignin.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleChange = this.handleChange.bind(this)
@@ -27,10 +28,14 @@ class LoginForm extends Component {
 	handleSubmit(event) {
 		event.preventDefault()
 		console.log('handleSubmit')
-		this.props._login(this.state.username, this.state.password)
+		this.props._login(this.state.username, this.state.password, (function(user){
+			console.log(user)
+			console.log(this)
 		this.setState({
-			redirectTo: '/'
+			redirectTo: '/forum/' + user.address.state
 		})
+		}).bind(this))
+
 	}
 
 	render() {

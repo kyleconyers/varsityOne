@@ -17,6 +17,7 @@ import committees from "./committees.json";
 import { SSL_OP_EPHEMERAL_RSA } from 'constants';
 import TwitterRoute from "./components/TwitterRoute";
 import Articles from "./components/Articles";
+import About from "./components/About";
 
 
 
@@ -52,7 +53,11 @@ const DisplayLinks = props => {
 							<h5>Log Out</h5>
 						</Link>
 					</li>
-					
+					<li>
+						<Link to="/about" className="nav-link">
+							<h5>About</h5>
+						</Link>
+					</li>
 					
 				</ul>
 			</nav>
@@ -86,13 +91,19 @@ class App extends Component {
 	constructor() {
 		super()
 		var usState = null;
+		let user = JSON.parse (window.sessionStorage.getItem("user"))
+
 		if (window.location.href.indexOf("forum")) {
+			console.log(window.location);
 			usState = window.location.href.substring(window.location.href.indexOf("forum")+6, window.location.href.indexOf("forum")+8);
 		}
-
+		if (user && window.location.pathname == "/"){
+			window.location.href="/forum/" + user.address.state
+		}
+		
 		this.state = {
 			loggedIn: false,
-			user: null,
+			user: (user) ? user:null,
 			loaded: false,
 			state: usState,
 			current_twitter_focus: "whitehouse"
@@ -187,7 +198,7 @@ class App extends Component {
 		})
 	}
 
-	_login(username, password) {
+	_login(username, password, callback) {
 		axios
 			.post('/auth/login', {
 				username,
@@ -196,11 +207,17 @@ class App extends Component {
 			.then(response => {
 				console.log(response)
 				if (response.status === 200) {
+					let user = response.data.user
+					
+					window.sessionStorage.setItem("user", JSON.stringify (user))
 					// update the state
 					this.setState({
 						loggedIn: true,
-						user: response.data.user
+						user: user
+
+
 					})
+					callback(user);
 				}
 			})
 	}
@@ -254,9 +271,11 @@ class App extends Component {
 									<LoginForm
 										_login={this._login}
 										_googleSignin={this._googleSignin}
+										{...this.state}
 									/>}
 							/>
 							<Route exact path="/signup" component={SignupForm} />
+						
 
 							<ProtectedRoute
 								exact path="/profile"
@@ -267,7 +286,7 @@ class App extends Component {
 							/>
 							<Route exact path="/articles" render={ () => <Articles user={this.state.user}/>} />
 							<Route exact path="/articles/:user" render={ () => <Articles user={null}/>} />
-
+							<Route exact path="/about" component={About} />
 						</CenterBody>
 					</Center>
 					

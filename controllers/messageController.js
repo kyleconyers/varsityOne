@@ -46,6 +46,7 @@ module.exports = {
     console.log(req.query);
     if (req.query.tag == "all") {
       db.Message.find({forum_id: req.query.forum_id})
+      .sort("-date")
       .then(dbMessage => res.json(dbMessage))
       .catch(err => res.status(422).json(err));
     } else {

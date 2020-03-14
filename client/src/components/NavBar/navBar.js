@@ -21,6 +21,11 @@ const DisplayLinks = props => {
 						</Link>
 					</li>
 					<li className="nav-item">
+						<Link to="/" className="nav-link">
+							About ContinueLi
+						</Link>
+					</li>
+					<li className="nav-item">
 						
 							Proper Channels
 						
@@ -47,6 +52,7 @@ const DisplayLinks = props => {
 							sign up
 						</Link>
 					</li>
+					
 
 					<li className="nav-item">
 						
