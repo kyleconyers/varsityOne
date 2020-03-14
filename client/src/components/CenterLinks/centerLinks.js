@@ -17,12 +17,32 @@ export default function CenterLinks(props){
   console.log('Our global from parent state: ', state);
   const tags = [
     { name: "all", color: "danger", displayText: "All Committees" },
-    { name: "innovation", color: "success", displayText: "Innovation, Technololgy & Economic Development"},
-    { name: "consumer", color: "success", displayText: "consumer, Technololgy & Economic Development"},
+    { name: "innovation", color: "warning", displayText: "Innovation, Technololgy & Economic Development"},
+    { name: "consumer", color: "warning", displayText: "Consumer, Technololgy & Economic Development"},
+    { name: "finance", color: "warning", displayText: "Finance"},
+    { name: "appropriations", color: "warning", displayText: "Appropriations"},
+    { name: "civil", color: "warning", displayText: "Civil Rights & Judicary"},
+    { name: "workforceDev", color: "warning", displayText: "College and Workforce development"},
+    { name: "Education", color: "warning", displayText: "Education"},
+    { name: "Environment", color: "warning", displayText: "Environment"},
+    { name: "Health", color: "warning", displayText: "Health Care and Wellness"},
+    { name: "Housing", color: "warning", displayText: "Housing, Community Development & Veterans"},
+    { name: "Human", color: "warning", displayText: "Human Service and Early Learning"},
+    { name: "Budget", color: "warning", displayText: "Capital Budget"},
+    { name: "Commerce", color: "warning", displayText: "Commerce and Gaming"},
+    { name: "Local", color: "warning", displayText: "Local Government"},
+    { name: "Safety", color: "warning", displayText: "Public Safety"},
+    { name: "Rules", color: "warning", displayText: "Rules"},
+    { name: "Rural", color: "warning", displayText: "Rural Development, Agriculture & Natural Resources"},
+    { name: "Tribal", color: "warning", displayText: "State Government and Tribal Relations"},
+    { name: "Transport", color: "warning", displayText: "Transportation"},
+
+
+
   ];
   const tagComponents = tags.map((tag) => {
     return (
-      <Badge selected={state.tags.has(tag.name)} color={state.tags.has(tag.name) ? "primary": tag.color} 
+      <Badge selected={(state.tag == tag.name)} color={(state.tag == tag.name) ? "primary": tag.color} 
         onClick={() => dispatch({type: "TOGGLE_TAG", tag: tag.name})}>
         {tag.displayText}
       </Badge>

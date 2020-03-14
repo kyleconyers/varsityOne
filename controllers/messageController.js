@@ -13,7 +13,16 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   findByUserId: function(req, res) {
-    db.Message.find({user: req.params.user_id})
+    let {user_id, tag} = req.params;
+    let query = null;
+
+    console.log("byUSER ID PARAM", req.params)
+    if(tag == 'all') {
+      query = {user: user_id}
+    } else {
+      query = {user: user_id, tag: tag}
+    }
+    db.Message.find(query)
       .then(dbMessage => res.json(dbMessage))
       .catch(err => res.status(422).json(err));
   },

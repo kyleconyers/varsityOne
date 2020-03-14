@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 // import "./MessageList.css";
 import Message from "../Message";
 import ML from "../MessageList";
-import API from "../../utils/API"
+import API from "../../utils/API";
+import { store } from "../Center/center";
 // import { threadId } from "worker_threads";
 
 /**
@@ -20,95 +21,65 @@ function getPostedForums(messages) {
 };
 
 
-class MessageList extends React.Component {
-
-    constructor(props) {
-
-        super(props)
-        console.log("MESSAGELIST 9", this.props)
-        let path = window.location.pathname;
-        path = path.split("/");
-        if(path.length > 2) {
-            path = path[2];
-        }
-        console.log("The path is: ", path)
-        this.state = {
-            messages: [],
-            forums: null,
-            path: path
-        }
-        
-
+function Articles(props) {
+    let user_path = window.location.pathname;
+    user_path = user_path.split("/");
+    if(user_path.length > 2) {
+        user_path = user_path[2];
     }
+    let {state, dispatch} = useContext(store);
+    let [messages, setMessages] = useState(null);
+    let [forums, setForums] = useState(null);
+    let [path, setPath] = useState(user_path)
+    let [user, setUser] = useState(null);
+    let [prevTag, setPrevTag] = useState(null);
 
-    getUser(name) {
+    function getUser(name) {
         console.log("pathname in getUser", name)
         API.getUser(name)
             .then((data) => {
                 console.log("DATA on call to getUser: ", data)
                 let user = data.data; 
-                this.getMessagesByUser(user)
+                setUser(user);
+                getMessagesByUser(user)
             })
             .catch((err) => {
                 console.log("oops, err: ", err)
             })
     }
 
-    getMessagesByUser(user) {
-        API.getMessageByUser(user._id)
+    
+    function getMessagesByUser(user) {
+        let tag = state.tag;
+        API.getMessageByUser(user._id, tag)
             .then((data) => {
-                this.setState({
-                    messages: data.data
-                })
+                setMessages(data.data)
                 console.log("DATA FROM MESSAGELIST 16", data)
-
-            });
+            });     
     }
-
-    getForumsWithNames() {
-        API.getForums().then((data) => {
-            this.setState({
-                forums: data.data
-            });
-        });
-    }
-    componentDidMount() {
-        if(this.props.user) {
-            this.getMessagesByUser(this.props.user);
-        } else {
-            this.getUser(this.state.path)
+    
+    if(props.user) {
+        if(user == null) {
+            setUser(props.user);
+            getMessagesByUser(props.user)
         }
-        
-        // this.getForumsWithNames();
+    } else {
+        if(user == null) {
+            getUser(path);
+        }
     }
-    render() {
-        const locs = [] // getPostedForums(this.state.messages);
-
-        // TODO: get name of locs from this.state.forums
-        // be careful because forums can be null. so you want to only print the buttons if its not
-        const renderedLocs = locs.map((loc) => {
-
-            return (
-                <button key={loc}>{loc}</button>
-            );
-        });
-        return (<>
-            render
-            {renderedLocs}
-            <ML messages={this.state.messages} />
-
-        </>);
 
 
-
-        // return (<div className="message-group-item">
-        //         {this.props.messages.map(
-        //             (message) => <Message key={message._id} message={message} /> 
-        //         )}
-        //         </div>)
+    let tag = state.tag;
+    console.log("USER IS: ", user)
+    if(tag != prevTag) {
+        setPrevTag(tag);
+        getUser(path);
     }
+
+    return(<ML messages={messages} />);
 
 }
 
 
-export default MessageList;
+export default Articles;

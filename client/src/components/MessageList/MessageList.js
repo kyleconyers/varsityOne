@@ -9,16 +9,13 @@ class MessageList extends React.Component{
         console.log("MESSAGE LIST PORPS", this.props);
     }
     
-
     render(){
         return (<div className="message-group-item">
-                the messages
-                {/* {this.props.messages.map(
+                {(this.props.messages) ? this.props.messages.map(
                     (message) => <Message key={message._id} message={message} /> 
-                )} */}
+                ) : ""}
                 </div>)
     }
-
 }
 
 

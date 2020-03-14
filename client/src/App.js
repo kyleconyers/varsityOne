@@ -210,6 +210,7 @@ class App extends Component {
 		const {current_twitter_focus} = this.state
 		console.log("PASSEDINTO TWITTER", current_twitter_focus)
 
+		console.log("The user is: ", this.state.user)
 		return (
 			<div className="App">
 				

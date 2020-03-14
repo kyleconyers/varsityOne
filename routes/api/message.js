@@ -14,7 +14,7 @@ router
   .delete(messageController.remove);
 
   router
-  .route("/byuser/:user_id")
+  .route("/byuser/:user_id/:tag")
   .get(messageController.findByUserId)
 
 module.exports = router;

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // import "./Board.css";
 import MessageList from "../MessageList";
 import API from "../../utils/API";
@@ -10,13 +10,22 @@ import Card from "../Card";
 import { store } from "../Center/center";
 
 
-function Board(props){
-  
+function Board(props) {
+
   const parentState = useContext(store);
-  const {state, dispatch} = parentState;
+  const [messageText, setMessageText] = useState(null)
+  const [messages, setMessages] = useState(null);
+  const [currentForumId, setCurrentForumId] = useState(null);
+  const [prevTag, setPrevTag] = useState(null);
+  const { state, dispatch } = parentState;
   //let messages = [{_id: "5daa84e359041d220f2eecd8", forum_id: "5c637e4f03735e710204f3ca", user: {"mern-passport"}, content: "text", date: "2019-10-19T03:37:07.872Z", …}];
   console.log("STATE FROM BOARD", parentState)
+  console.log("IN BOARD< THESE ARE PROPS", props)
+
   
+
+
+
   // state = {
 
   //   messages: [],
@@ -25,48 +34,58 @@ function Board(props){
   // };
   //passvvvvv form_id or whatever message board we are on 
 
-  useEffect(() => {
-    const path = window.location.pathname.split("/");
+
+  const path = window.location.pathname.split("/");
+  console.log("PATH IS", path)
+  if (path[1] !== 'forum') {
+    // throw exception because we dont understand how this url is formatted
+    return;
+  } else {
+    initForum(path);
+  }
+
+  function initForum(path) {
+
     console.log("PATH FOR MESSAGES", path)
-    if (path[1] !== 'forum') {
-      // throw exception because we dont understand how this url is formatted
-      return;
-    }
+
+    let tag = state.tag;
+    console.log("THE TAG IS: ", tag);
+
     const forumName = path[2].toUpperCase();
     if (forumName) {
       console.log(forumName);
       console.log("IN BOARD FORUM: ", state)
-      if(!state.messages.length <= 0) {
-        API.getSavedForum(forumName)
+
+      API.getSavedForum(forumName)
         // .then(data => data.json())
         .then(data => {
           if (data.data) {
             const forumId = data.data._id;
+            setCurrentForumId(forumId);
             console.log("THE FORUM ID: ", forumId)
-            getSavedMessage(forumId);
+            if(messages == null) {
+              getSavedMessage(forumId);
+
+            } else if(tag != prevTag) {
+              setPrevTag(tag)
+              getSavedMessage(forumId); 
+            }
           }
         });
-      }
     }
-  });
+  }
 
   function getSavedMessage(forum_id) {
 
-    let tag = state.tags;
+    let tag = state.tag;
 
-    let tags = Array.from(tag);
-    tag = tags[0];
-    console.log("THE TAG IS: ", tag);
+    console.log("THE TAG IS (prev): ", prevTag);
 
     API.getSavedMessageByForumAndTag(forum_id, tag)
       .then(res => {
         console.log("rom response", res.data)
         let messages = res.data;
-        dispatch({type: 'SET_MESSAGES', messages: messages})
-        // this.setState({
-        //   currentForumId: forum_id,
-        //   messages: res.data
-        // })
+        setMessages(messages);
       }
       )
       .catch(err => console.log(err));
@@ -120,45 +139,44 @@ function Board(props){
   //get path 
   //This Green Part needs to be turned into message section
   ////////////////////////////////
- /*  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-    // console.log("inside change")
-  }; */
 
-  /* handleMessageSave = id => {
+  let handleInputChange = event => {
+    const { name, value } = event.target;
+    return setMessageText(value)
+  };
+
+  let handleMessageSave = id => {
     // const message = this.state.message.find(message => message.id === id);
 
-    var tags = window.location.href.split("/");
-    var tag = tags[5];
+    // var tags = window.location.href.split("/");
+    // var tag = tags[5];
 
+    let tag = state.tag;
 
-
-    console.log(this.props)
+    console.log("the props", props)
     API.saveMessage({
       //this.state.currentusstate
-      forum_id: this.state.currentForumId,
-      user: this.props.user._id,
-      content: this.state.messageText,
+      forum_id: currentForumId,
+      user: props.user._id,
+      content: messageText,
       date: new Date(),
       tag: tag
-    }).then(() => this.setState({ messageText: "" }))
-      .then(() => this.getSavedMessage(this.state.currentForumId));
-  }; */
+    }).then(() => setMessageText(""))
+      .then(() => getSavedMessage(currentForumId));
+  };
   // resUser._id
 
-  /* handleFormSubmit = event => {
+
+  let handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.messageText) {
-      this.handleMessageSave();
+    if (messageText) {
+      handleMessageSave();
       // this.db.insert();
-      console.log("inside sumbit")
+      console.log("inside sumbit", messageText)
     } else {
       console.log("EMPTY MESSAGE, DID NOT SUBMIT")
     }
-  }; */
+  };
 
 
 
@@ -166,27 +184,27 @@ function Board(props){
   */
 
 
-    return (
-      <Container>
+  return (
+    <Container>
 
-        <Row>
-          <Col size="md-12">
-            <Card title="Post Content" icon="far fa-book">
-              <PostForm
-                // handleInputChange={this.handleInputChange}
-                // handleFormSubmit={this.handleFormSubmit}
-                // messageText={this.state.messageText}
-              />
-            </Card>
-            <h1>HELLO</h1>
-            <MessageList
-              messages={state.messages}
+      <Row>
+        <Col size="md-12">
+          <Card title="Post Content" icon="far fa-book">
+            <PostForm
+              handleInputChange={handleInputChange}
+              handleFormSubmit={handleFormSubmit}
+              messageText={messageText}
             />
+          </Card>
+        <h1>HELLO</h1>
+          <MessageList
+            messages={messages}
+          />
 
-          </Col>
-        </Row>
+        </Col>
+      </Row>
 
-        {/* <Row>
+      {/* <Row>
               <Message message={this.state.messages[0]}>
               
               </Message> 
@@ -213,9 +231,9 @@ function Board(props){
                
             </Row> */}
 
-      </Container>
-    );
-  
+    </Container>
+  );
+
 }
 
 
