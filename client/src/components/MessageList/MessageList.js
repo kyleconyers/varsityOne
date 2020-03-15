@@ -10,7 +10,7 @@ class MessageList extends React.Component{
     }
     
     render(){
-        return (<div className="message-group-item">
+        return (<div className="message-group-item" className="centerLinksBadges">
                 {(this.props.messages) ? this.props.messages.map(
                     (message) => <Message key={message._id} message={message} /> 
                 ) : ""}

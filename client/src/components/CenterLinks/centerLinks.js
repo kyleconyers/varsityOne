@@ -42,7 +42,7 @@ export default function CenterLinks(props){
   ];
   const tagComponents = tags.map((tag) => {
     return (
-      <Badge selected={(state.tag == tag.name)} color={(state.tag == tag.name) ? "primary": tag.color} 
+      <Badge className="centerLinksBadges" selected={(state.tag == tag.name)} color={(state.tag == tag.name) ? "primary": tag.color} 
         onClick={() => dispatch({type: "TOGGLE_TAG", tag: tag.name})}>
         {tag.displayText}
       </Badge>
