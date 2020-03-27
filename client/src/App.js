@@ -26,14 +26,27 @@ import About from "./components/About";
 
 // console.log('testAPP.js');
 
-
+{/* <Link to={{
+  pathname: '/tylermcginnis',
+  state: {
+    fromNotifications: true
+  }
+}}>Tyler McGinnis</Link> */}
 const DisplayLinks = props => {
+	// let user = JSON.parse (window.sessionStorage.getItem("user"))
+	function changeState(){
+	  let {state}= props.user.address;
+	  props.setNewValue(state)
+	}
 	if (props.loggedIn) {
+		let {state}= props.user.address;
 		return (
 			<nav className="navbar">
 				<ul className="nav">
 					<li className="nav-item">
-						<Link to="/" className="nav-link">
+						{/* <Link to={"/forum/" + user.address.state} className="nav-link"> */}
+
+						<Link onClick={changeState} to={`/forum/${state}`} className="nav-link">
 							<h5>Home</h5>
 						</Link>
 					</li>
@@ -234,7 +247,7 @@ class App extends Component {
 				{/* NavBar at top of page */}
 				<NavBar className="navBar">
 
-					<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
+					<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} user={this.state.user} changeState={this.setNewValue}/>
 
 				</NavBar>
 

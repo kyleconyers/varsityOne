@@ -255,3 +255,12 @@ padding: 5px;
 .centerLinksBadges{
   cursor: pointer;
 }
+.aboutText{
+  font-size: 15px;
+  padding-left: 12.5%;
+  padding-right: 12.5%;
+  padding-top: -20px;
+}
+.aboutFooterText{
+  padding-top: -20px;
+}

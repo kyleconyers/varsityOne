@@ -211,10 +211,10 @@ class UserProfile extends Component {
 
                     <br/>
 
-                    <h3>Google Account Info</h3>
+                    {/* <h3>Google Account Info</h3>
                     {
                         this.googleConnectSwitch()
-                    }
+                    } */}
                     
                 </Container>
 			</div>

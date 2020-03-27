@@ -189,13 +189,18 @@ function Board(props) {
 
       <Row>
         <Col size="md-12">
+        {
+              (props.user)?
           <Card title="Post Content" icon="far fa-book">
-            <PostForm
+           <PostForm
               handleInputChange={handleInputChange}
               handleFormSubmit={handleFormSubmit}
               messageText={messageText}
-            />
-          </Card>
+           />
+            
+          
+          </Card>:null
+        }  
         <h1>HELLO</h1>
           <MessageList
             messages={messages}

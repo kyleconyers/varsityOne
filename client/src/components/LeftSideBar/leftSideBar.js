@@ -8,7 +8,7 @@ import OtherDistricts from '../OtherDistricts'
 const LeftSideBar = props => {
     
     return (<div className="leftSideBar">
-    <MiniProfile className="profile" user={props.user} />
+    <MiniProfile className="profile" user={props.user} changeUSState={props.setNewValue} />
     
     <Districts 
         className="districts" 

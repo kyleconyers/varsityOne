@@ -13,6 +13,12 @@ const MiniProfile = props => {
     // )
     let Greeting, HomeState
 
+
+    function changeState(){
+        let {state}=user.address;
+        props.changeUSState(state)
+    }
+
     // If no user, treat as guest
 	if ( !user ) {
 		Greeting = <p>Hello guest</p>
@@ -44,7 +50,7 @@ const MiniProfile = props => {
                     Home State: <strong>{state}</strong>
                 
                     <Link to={`/forum/${state}`} >
-                        <Button className="miniProfile_button" >View</Button>
+                        <Button onClick={changeState} className="miniProfile_button" >View</Button>
                     </Link>
                 </p>
             </div>

@@ -20,9 +20,9 @@ const DisplayLinks = props => {
 							Logout
 						</Link>
 					</li>
-					<li className="nav-item">
+							<li className="nav-item">
 						<Link to="/" className="nav-link">
-							About ContinueLi
+							Home
 						</Link>
 					</li>
 					<li className="nav-item">

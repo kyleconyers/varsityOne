@@ -123,16 +123,16 @@ class Districts extends Component {
             }          
         })):(console.log("")); 
     
-      
-    if ((this.props.user == null)&&(this.props.usState == null)) {
-      return (
-        <Container className="districtContainer">
-          <Row>
-            <h3>LOADING....</h3>
-          </Row>
-        </Container>
-      )
-    } else {
+        // (this.props.user == null)&&
+    // if ((this.props.user == null)&&(this.props.usState == null)) {
+    //   return (
+    //     <Container className="districtContainer">
+    //       <Row>
+    //         <h3>LOADING....</h3>
+    //       </Row>
+    //     </Container>
+    //   )
+    // } else {
     return (
       <Container className="districtContainer">
         <Row>
@@ -195,7 +195,7 @@ class Districts extends Component {
       );
     }
   }
-}
+// }
 
 
 export default Districts;
